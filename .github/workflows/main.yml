@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Locally clone pml-iOS Repository
-      run: git clone --branch ${{ github.event.inputs.tag }} --depth 1 https://codeberg.org/polytrackmods/PolyModLoader.git www
+      run: git clone --branch ${{ github.event.inputs.tag }} --depth 1 https://codeberg.org/CRJakob/PolyModLoader-helper.git www
     - name: Patch PolyModLoader for iOS
       run: bash scripts/patch-ios.sh
     - name: Set up node.js
