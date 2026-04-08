@@ -100,6 +100,24 @@ jobs:
             -t ios \
             --apiKey "$API_KEY_ID" \
             --apiIssuer "$API_ISSUER_ID"
+      - name: Wait for Codeberg release
+        env:
+          CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
+        run: |
+          echo "Waiting for Codeberg release ${{ github.event.inputs.tag }}..."
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+              -H "Authorization: Bearer $CODEBERG_TOKEN" \
+              "https://codeberg.org/api/v1/repos/CRJakob/PolyModLoader-helper/releases/tags/${{ github.event.inputs.tag }}")
+            if [ "$STATUS" = "200" ]; then
+              echo "Release found!"
+              exit 0
+            fi
+            echo "Attempt $i/30: release not found yet (HTTP $STATUS), waiting 30s..."
+            sleep 30
+          done
+          echo "Release not found after 15 minutes, giving up"
+          exit 1
       - name: Upload IPA to Codeberg release
         env:
           CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
