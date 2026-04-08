@@ -79,20 +79,26 @@ jobs:
           -archivePath $RUNNER_TEMP/App.xcarchive \
           -exportPath $RUNNER_TEMP/export \
           -exportOptionsPlist ios/ExportOptions.plist
+    - name: List export directory
+      run: find $RUNNER_TEMP/export -type f
     - name: Upload to TestFlight
       env:
         API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
         API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
         API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
       run: |
-        echo "$API_KEY_BASE64" | base64 --decode > api_key.p8
+        mkdir -p ~/.appstoreconnect/private_keys
+        echo "$API_KEY_BASE64" | base64 --decode > ~/.appstoreconnect/private_keys/AuthKey_${API_KEY_ID}.p8
+
+        # Find the actual IPA name
+        IPA_PATH=$(find $RUNNER_TEMP/export -name "*.ipa" | head -1)
+        echo "Found IPA: $IPA_PATH"
+
         xcrun altool --upload-app \
-          -f $RUNNER_TEMP/export/PolyModLoader.ipa \
+          -f "$IPA_PATH" \
           -t ios \
           --apiKey "$API_KEY_ID" \
-          --apiIssuer "$API_ISSUER_ID" \
-          --private-key api_key.p8
-        rm api_key.p8
+          --apiIssuer "$API_ISSUER_ID"
     - name: Upload IPA to Codeberg release
       env:
         CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
