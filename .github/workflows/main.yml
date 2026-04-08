@@ -21,6 +21,9 @@ jobs:
       run: |
         npm install
         npx cap sync ios
+        cd ios/App
+        pod install
+        cd ../../
     - name: Import signing certificate
       env:
         P12_BASE64: ${{ secrets.IOS_CERTIFICATE_P12_BASE64 }}
