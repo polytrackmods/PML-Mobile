@@ -69,6 +69,7 @@ jobs:
           MARKETING_VERSION=${{ env.MARKETING_VERSION }} \
           CURRENT_PROJECT_VERSION=${{ env.BUILD_NUMBER }} \
           archive \
+          CODE_SIGN_STYLE=Manual \
           CODE_SIGN_IDENTITY="iPhone Distribution" \
           PROVISIONING_PROFILE_SPECIFIER="Github actions PML build"
     - name: Export IPA
