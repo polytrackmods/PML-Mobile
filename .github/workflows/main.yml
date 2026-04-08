@@ -61,7 +61,7 @@ jobs:
     - name: Compile iOS
       run: |
         xcodebuild \
-          -workspace ios/App.xcodeproj/project.xcworkspace \
+          -workspace ios/App/App.xcodeproj/project.xcworkspace \
           -scheme App \
           -sdk iphoneos \
           -configuration Release \
