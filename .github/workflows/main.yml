@@ -106,8 +106,17 @@ jobs:
         run: |
           IPA_PATH=$(find $RUNNER_TEMP/export -name "*.ipa" | head -1)
           echo "Found IPA: $IPA_PATH"
+
+          # Get release ID from tag
+          RELEASE_ID=$(curl -s \
+            -H "Authorization: Bearer $CODEBERG_TOKEN" \
+            "https://codeberg.org/api/v1/repos/CRJakob/PolyModLoader-helper/releases/tags/${{ github.event.inputs.tag }}" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+            echo "Release ID: $RELEASE_ID"
+
+          # Upload IPA as release asset
           curl -s -X POST \
           -H "Authorization: Bearer $CODEBERG_TOKEN" \
           -H "Content-Type: application/octet-stream" \
           --data-binary @"$IPA_PATH" \
-          "https://codeberg.org/api/v1/repos/CRJakob/PolyModLoader-helper/releases/tags/${{ github.event.inputs.tag }}/assets?name=PolyModLoader.ipa"
+          "https://codeberg.org/api/v1/repos/CRJakob/PolyModLoader-helper/releases/${RELEASE_ID}/assets?name=PolyModLoader.ipa"
