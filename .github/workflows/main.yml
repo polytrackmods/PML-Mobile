@@ -105,5 +105,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ios-ipa
-          path: ${{ runner.temp }}/export/PolyModLoader.ipa
+          path: ${{ runner.temp }}/export/App.ipa
           retention-days: 1
