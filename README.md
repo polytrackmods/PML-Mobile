@@ -1,3 +1,3 @@
-# pml-iOS
+# PML-Mobile
 
-A repository housing the iOS build configuration for the PML app
+A repository housing the mobile build configuration for the PML app
