@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PolyModLoader</string>
+    <string name="title_activity_main">PolyModLoader</string>
+    <string name="package_name">com.polymodloader.pml</string>
+    <string name="custom_url_scheme">com.polymodloader.pml</string>
+</resources>
