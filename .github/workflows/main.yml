@@ -82,8 +82,7 @@ jobs:
             -exportOptionsPlist ios/ExportOptions.plist
       - name: List export directory
         run: find $RUNNER_TEMP/export -type f
-      - name: Upload to TestFlight (temporarily disabled for testing)
-        if: false
+      - name: Upload to TestFlight
         env:
           API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
           API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
