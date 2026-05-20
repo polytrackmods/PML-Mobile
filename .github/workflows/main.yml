@@ -18,6 +18,8 @@ jobs:
         run: bash scripts/patch-ios.sh
       - name: Set up node.js
         uses: actions/setup-node@v4
+        with:
+          node-version: 26.1.0
       - name: Set up capacitor workspace
         run: |
           npm install
@@ -107,13 +109,15 @@ jobs:
 
   build_and_release_android:
     name: Build and release Android
-    runs-on: ubuntu-latest
+    runs-on: debian-latest
     steps:
       - uses: actions/checkout@v4
       - name: Locally clone pml Repository
         run: git clone --branch ${{ github.event.inputs.tag }} --depth 1 https://git.polymodloader.com/Jakob/PolyModLoader.git www
       - name: Set up node.js
         uses: actions/setup-node@v4
+        with:
+          node-version: 26.1.0
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
