@@ -109,7 +109,7 @@ jobs:
 
   build_and_release_android:
     name: Build and release Android
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Locally clone pml Repository
