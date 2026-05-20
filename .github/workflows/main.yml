@@ -14,7 +14,6 @@ jobs:
       - name: Locally clone pml-iOS Repository
         run: git clone --branch ${{ github.event.inputs.tag }} --depth 1 https://git.polymodloader.com/Jakob/PolyModLoader.git www
       - name: Patch PolyModLoader for iOS
-        if: false
         run: bash scripts/patch-ios.sh
       - name: Set up node.js
         uses: actions/setup-node@v4
@@ -57,7 +56,6 @@ jobs:
           echo "MARKETING_VERSION=$MARKETING_VERSION" >> $GITHUB_ENV
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
       - name: Compile iOS
-        if: false
         run: |
           xcodebuild \
             -workspace ios/App/App.xcodeproj/project.xcworkspace \
@@ -72,7 +70,6 @@ jobs:
             CODE_SIGN_IDENTITY="iPhone Distribution" \
             PROVISIONING_PROFILE_SPECIFIER="Github actions PML build"
       - name: Export IPA
-        if: false
         run: |
           xcodebuild \
             -exportArchive \
@@ -100,7 +97,6 @@ jobs:
             --apiKey "$API_KEY_ID" \
             --apiIssuer "$API_ISSUER_ID"
       - name: Upload IPA artifact
-        if: false
         uses: actions/upload-artifact@v4
         with:
           name: ios-ipa
