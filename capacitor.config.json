@@ -2,5 +2,14 @@
   "appId": "com.polymodloader.pml",
   "appName": "PolyModLoader",
   "webDir": "www",
-	"packageClassList": []
+  "backgroundColor": "#192042",
+  "packageClassList": [],
+	"plugins": {
+		"SystemBars": {
+			"hidden": true
+		}
+	},
+  "server": {
+	  "hostname": "app-polytrack-android.polymodloader.com"
+  }
 }
